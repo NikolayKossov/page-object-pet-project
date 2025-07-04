@@ -9,7 +9,6 @@ public class LoginTests {
     @Test
     void successfulLoginTest() {
         Configuration.holdBrowserOpen = true;
-
         open("https://automationteststore.com/index.php?rt=account/login");
         $("[name=loginname]").setValue("userOdin");
         $("[name=password]").setValue("12345").pressEnter();
