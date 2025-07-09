@@ -1,4 +1,4 @@
-plugins {
+ plugins {
     id 'java-library'
 }
 
@@ -9,7 +9,8 @@ repositories {
 dependencies {
     testImplementation (
             "com.codeborne:selenide:7.2.1",
-            "org.junit.jupiter:junit-jupiter:5.8.2")
+            "org.junit.jupiter:junit-jupiter:5.8.2",
+            "org.slf4j:slf4j-simple:2.0.16",)
 }
 
 tasks.withType(JavaCompile).configureEach {
