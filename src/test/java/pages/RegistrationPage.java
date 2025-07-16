@@ -1,12 +1,14 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import com.github.javafaker.Faker;
 import org.openqa.selenium.Keys;
 import pages.components.CalendarComponent;
 import pages.components.FileComponent;
 import pages.components.RegistrationResultModal;
 
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
@@ -73,7 +75,7 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setMusicAsHobby(String hobby) {  //todo improve the logic for many cases
+    public RegistrationPage setHobby(String hobby) {  //todo improve the logic for many cases
         int num = 0;
         if ("Sports".equals(hobby)) {
             num = 1;
@@ -86,6 +88,11 @@ public class RegistrationPage {
         return this;
     }
 
+    public RegistrationPage setAnyHobby() {  //todo improve the logic for many cases
+        int num = Faker.instance().number().numberBetween(1, 3);
+        $("#hobbies-checkbox-"+num).parent().click();
+        return this;
+    }
 
     public RegistrationPage setNumber(String number) {
         $("#userNumber").setValue(number);
@@ -105,18 +112,21 @@ public class RegistrationPage {
 
     public RegistrationPage setState(String userState) {
         state.click();
-        int num = 0;
-        if ("NCR".equals(userState)) {
-            num = 0;
-        }  else if ("Uttar Pradesh".equals(userState)) {
-            num = 1;
-        } else if ("Haryana".equals(userState)) {
-            num = 2;
-        } else if ("Rajasthan".equals(userState)) {
-            num = 3;
-        }
-        $("#react-select-3-option-"+num).click();
+        $("#stateCity-wrapper").$(byText(userState)).click();
+        return this;
+    }
 
+    public RegistrationPage setCity(String userCity) {
+        city.click();
+        $("#stateCity-wrapper").$(byText(userCity)).click();
+        return this;
+    }
+
+    public RegistrationPage setAnyState() {
+        state.click();
+        int num = Faker.instance().number().numberBetween(0, 3);
+
+        $("#react-select-3-option-"+num).click();
 
         return this;
     }

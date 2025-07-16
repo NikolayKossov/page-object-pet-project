@@ -1,26 +1,13 @@
 package demoqa;
 
 import org.junit.jupiter.api.Test;
+
+import static pages.utils.DataHolder.*;
+
 public class TextBoxTest extends TestBase {
 
     @Test
     void fillPracticeFormTest() {
-        String firstName = "John";
-        String lastName = "Smith";
-        String email = "smithjohnson@gmail.com";
-        String number = "1234567890";
-        String gender = "Male";
-        String dayOfBirth = "20";
-        String monthOfBirth = "December";
-        String yearOfBirth = "1990";
-        String subject = "Computer Science";
-        String hobby = "Music";
-        String photoAdress = "src/test/resources/";
-        String photoName = "photo.jpg";
-        String address = "baker street 221b";
-        String state = "Uttar Pradesh";
-        String city = "Merrut";
-
         registrationPage.openPage()
                 .setFirstName(firstName)
                 .setLastName(lastName)
@@ -29,11 +16,11 @@ public class TextBoxTest extends TestBase {
                 .setNumber(number)
                 .setBirthDate(dayOfBirth, monthOfBirth, yearOfBirth)
                 .setSubject(subject)
-                .setMusicAsHobby(hobby)
+                .setHobby(hobby)
                 .setAddress(address)
                 .setPhoto(photoAdress, photoName)
                 .setState(state)
-                .setCityMerrut()
+                .setCity(city)
                 .confirmData();
 
         registrationPage.verifyModalAppears()
