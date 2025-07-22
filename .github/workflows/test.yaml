@@ -15,12 +15,13 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - uses: Xotabu4/selenoid-github-action@v2
+      - name: Install Chrome
+        run: |
+          sudo apt update
+          sudo apt install -y google-chrome-stable || sudo apt install -y chromium-browser
 
-      - name: Wait for Selenoid
-        run: sleep 20
-
-      - run: ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub
+      - name: Run tests in headless mode
+        run: ./gradlew clean test -Dselenide.browser=chrome -Dselenide.headless=true
 
       - uses: actions/checkout@v2
         if: always()
