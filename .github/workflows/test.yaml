@@ -1,35 +1,42 @@
-name: Test
+name: UI Tests
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  ui-tests:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Set up Java 17
-        uses: actions/setup-java@v3
+      - uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
+          distribution: 'zulu'
           java-version: '17'
 
-      - name: Grant execute permission for Gradle wrapper
-        run: chmod +x gradlew
+      - uses: Xotabu4/selenoid-github-action@v2
 
-      - name: Install Chrome (if not present)
-        run: |
-          sudo apt update
-          sudo apt install -y chromium-browser
+      - run: ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub
 
-      - name: Configure Selenide for headless
-        run: echo 'org.gradle.jvmargs="-Dselenide.headless=true -Dselenide.browser=chrome"' >> gradle.properties
+      - uses: actions/checkout@v2
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
 
-      - name: Run tests
-        run: ./gradlew clean test
+      - uses: simple-elf/allure-report-action@master
+        if: always()
+        with:
+          gh_pages: gh-pages
+          allure_results: build/allure-results
+          allure_report: allure-report
+          allure_history: allure-history
+
+      - uses: peaceiris/actions-gh-pages@v2
+        if: always()
+        env:
+          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_BRANCH: gh-pages
+          PUBLISH_DIR: allure-history
