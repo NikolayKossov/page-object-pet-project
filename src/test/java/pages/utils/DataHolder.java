@@ -8,7 +8,7 @@ public class DataHolder {
     public static String email = Faker.instance().internet().emailAddress();
     public static String number = Faker.instance().number().digits(10);
     public static String gender = GenderGenerator.randomGender(); //todo Add merhod
-    public static String dayOfBirth = String.valueOf(Faker.instance().number().numberBetween(1, 31));
+    public static String dayOfBirth = String.valueOf(20);
     public static String monthOfBirth = MonthGenerator.randomMonth();  //todo Add method
     public static String yearOfBirth = String.valueOf(Faker.instance().number().numberBetween(1900, 2025));
     public static String subject = CharGenerator.randomChar();
