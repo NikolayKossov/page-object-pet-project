@@ -51,7 +51,6 @@ public class TestBase {
     void addAttachments() {
         Attach.screenshotAs("Last screenshot");
         Attach.pageSource();
-        Attach.attachVideoFile();
         Attach.addVideoHtml();
     }
 }
