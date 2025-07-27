@@ -5,7 +5,11 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.chrome.ChromeOptions;
 import pages.RegistrationPage;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
@@ -15,6 +19,28 @@ public class TestBase {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com/";
         Configuration.remote = "http://localhost:4444/wd/hub";
+        ChromeOptions options = new ChromeOptions();
+
+        options.setCapability("selenoid:options", new HashMap<String, Object>() {{
+            /* How to add test badge */
+            put("name", "Test badge...");
+
+            /* How to set session timeout */
+            put("sessionTimeout", "15m");
+
+            /* How to set timezone */
+            put("env", new ArrayList<String>() {{
+                add("TZ=UTC");
+            }});
+
+            /* How to add "trash" button */
+            put("labels", new HashMap<String, Object>() {{
+                put("manual", "true");
+            }});
+
+            /* How to enable video recording */
+            put("enableVideo", true);
+        }});
     }
 
     @BeforeEach
