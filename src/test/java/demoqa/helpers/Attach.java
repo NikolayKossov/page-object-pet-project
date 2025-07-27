@@ -7,7 +7,6 @@ import org.openqa.selenium.TakesScreenshot;
 
 import java.io.InputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
@@ -33,42 +32,30 @@ public class Attach {
     }
 
     public static void browserConsoleLogs() {
-        attachAsText(
-                "Browser console logs",
-                String.join("\n", Selenide.getWebDriverLogs(BROWSER))
-        );
+        attachAsText("Browser console logs", String.join("\n", Selenide.getWebDriverLogs(BROWSER)));
     }
 
     @Attachment(value = "Video preview (HTML)", type = "text/html", fileExtension = ".html")
-    public static String addVideoHtmlPreview() {
-        return "<html><body><video width='100%' height='100%' controls autoplay><source src='"
-                + getVideoUrl()
-                + "' type='video/mp4'></video></body></html>";
+    public static String addVideoHtml() {
+        return "<html><body><video width='100%' height='100%' controls autoplay>" +
+                "<source src='" + getVideoUrl() + "' type='video/mp4'>" +
+                "</video></body></html>";
     }
 
-    /**
-     * This method downloads and attaches the actual video as an MP4 file to the Allure report.
-     */
     @Attachment(value = "Test Video", type = "video/mp4", fileExtension = ".mp4")
     public static byte[] attachVideoFile() {
-        URL videoUrl = getVideoUrl();
-        if (videoUrl == null) return null;
-
-        try (InputStream is = videoUrl.openStream()) {
-            return is.readAllBytes();
+        try {
+            URL videoUrl = new URL(getVideoUrl());
+            try (InputStream is = videoUrl.openStream()) {
+                return is.readAllBytes();
+            }
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static URL getVideoUrl() {
-        String videoUrl = "http://localhost:4444/video/" + sessionId() + ".mp4";
-        try {
-            return new URL(videoUrl);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public static String getVideoUrl() {
+        return "http://localhost:4444/video/" + sessionId() + ".mp4";
     }
 }
