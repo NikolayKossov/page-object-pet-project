@@ -1,10 +1,12 @@
 package demoqa;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static io.qameta.allure.Allure.step;
 import static pages.utils.DataHolder.*;
 
+@Tag("simple")
 public class TextBoxTest extends TestBase {
 
     @Test
