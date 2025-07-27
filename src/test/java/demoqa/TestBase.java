@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.chrome.ChromeOptions;
 import pages.RegistrationPage;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TestBase {
@@ -28,10 +27,6 @@ public class TestBase {
             /* How to set session timeout */
             put("sessionTimeout", "15m");
 
-            /* How to set timezone */
-            put("env", new ArrayList<String>() {{
-                add("TZ=UTC");
-            }});
 
             /* How to add "trash" button */
             put("labels", new HashMap<String, Object>() {{
@@ -41,6 +36,8 @@ public class TestBase {
             /* How to enable video recording */
             put("enableVideo", true);
         }});
+
+        Configuration.browserCapabilities = options;
     }
 
     @BeforeEach
