@@ -26,6 +26,7 @@ public class TestBase {
         Configuration.baseUrl = "https://demoqa.com/";
         Configuration.remote = System.getProperty("remote_url");
         Configuration.browser = System.getProperty("browser");
+        Configuration.browserVersion = System.getProperty("browser_version");
         MutableCapabilities options = new MutableCapabilities();
 
         options.setCapability("selenoid:options", new HashMap<String, Object>() {{
