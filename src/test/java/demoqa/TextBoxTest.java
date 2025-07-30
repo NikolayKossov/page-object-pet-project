@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static io.qameta.allure.Allure.step;
 import static pages.utils.DataHolder.*;
 
-@Tag("simple")
+@Tag("set_up")
 public class TextBoxTest extends TestBase {
 
     @Test
