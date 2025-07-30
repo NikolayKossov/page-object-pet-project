@@ -7,7 +7,7 @@ import static io.qameta.allure.Allure.step;
 import static pages.utils.DataHolder.*;
 
 public class TextBoxTest extends TestBase {
-
+    @Tag("set_up")
     @Test
     void fillPracticeFormTest() {
         step("Open and fill the form", () -> {
