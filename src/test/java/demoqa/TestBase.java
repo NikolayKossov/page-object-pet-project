@@ -7,6 +7,7 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.openqa.selenium.chrome.ChromeOptions;
 import pages.RegistrationPage;
 
@@ -16,10 +17,11 @@ public class TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
 
     @BeforeAll
+    @Tag("set_up")
     public static void beforeAll() {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com/";
-        Configuration.remote = "http://localhost:4444/wd/hub";
+        Configuration.remote = System.getProperty("remote_url");
         ChromeOptions options = new ChromeOptions();
 
         options.setCapability("selenoid:options", new HashMap<String, Object>() {{
