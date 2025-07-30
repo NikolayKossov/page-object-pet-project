@@ -22,8 +22,8 @@ public class TestBase {
     @BeforeAll
     @Tag("set_up")
     public static void beforeAll() {
-        Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com/";
+        Configuration.browserSize = System.getProperty("browser_size");
         Configuration.remote = System.getProperty("remote_url");
         Configuration.browser = System.getProperty("browser");
         Configuration.browserVersion = System.getProperty("browser_version");
