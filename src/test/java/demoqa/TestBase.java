@@ -21,7 +21,7 @@ public class TestBase {
     public static void beforeAll() {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com/";
-        Configuration.remote = System.getProperty("remote_url");
+        Configuration.remote = System.getProperty("remote_url", "");
         ChromeOptions options = new ChromeOptions();
 
         options.setCapability("selenoid:options", new HashMap<String, Object>() {{
