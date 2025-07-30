@@ -8,9 +8,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import pages.RegistrationPage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TestBase {
@@ -22,7 +25,8 @@ public class TestBase {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://demoqa.com/";
         Configuration.remote = System.getProperty("remote_url");
-        ChromeOptions options = new ChromeOptions();
+        Configuration.browser = System.getProperty("browser");
+        MutableCapabilities options = new MutableCapabilities();
 
         options.setCapability("selenoid:options", new HashMap<String, Object>() {{
             /* How to add test badge */
@@ -31,6 +35,10 @@ public class TestBase {
             /* How to set session timeout */
             put("sessionTimeout", "15m");
 
+            /* How to set timezone */
+            put("env", new ArrayList<String>() {{
+                add("TZ=UTC");
+            }});
 
             /* How to add "trash" button */
             put("labels", new HashMap<String, Object>() {{
