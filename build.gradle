@@ -50,7 +50,7 @@ task hello_test(type: Test) {
     }
 }
 
-task set(type: Test) {
+task set_test(type: Test) {
     useJUnitPlatform {
         includeTags("set_up")
     }
